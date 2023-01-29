@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쿠팡 예제</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    ul, li{list-style: none;}
+    .banner{
+      margin-top: 50px;
+      width: 100%;
+      position: relative;
+    }
+    .banner div img{width: 100%;}
+    .banner nav{
+      background: rgba(255,255,255,0.8);
+      position: absolute;
+      top: 50%;
+      right: 400px;
+      transform: translateY(-50%);
+    }
+    .banner nav li{
+      border: 2px solid #eee;
+    }
+    .banner nav a{
+      display: block;
+      text-decoration: none;
+      color: #333;
+      font-size: 12px;
+      line-height: 60px;
+      padding: 0 30px;
+    }
+    .on{
+      border: 2px solid #4285f4 !important;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(function(){
+      let num = $('.banner li a').index();
+
+      function slide(){
+        if(num==5){
+          num=0;
+        }else{
+          num++;
+        }
+        // console.log(num);
+
+        let url = $('.banner li a').eq(num).attr('href');
+        // console.log(url);
+
+        $('.banner div img').attr('src',url);
+        $('.banner nav li').removeClass();
+        $('.banner li a').eq(num).parent().addClass('on');
+      };
+
+      let Timer = setInterval(slide, 3000);
+
+      $('.banner nav li a').mouseenter(function(){
+        clearInterval(Timer);
+        
+        let url = $(this).attr('href');
+        // console.log(url);
+
+        $('.banner div img').attr('src',url);
+        $('.banner nav li').removeClass();
+        $(this).parent().addClass('on');
+      });
+
+      $('.banner nav li a').mouseleave(function(){
+        clearInterval(Timer);
+        Timer = setInterval(slide, 3000);
+        // 왜 이어서 재생??????????????????짱나
+      });
+    });
+  </script>
+</head>
+<body>
+  <article class="banner">
+    <div>
+      <img src="./images01/coupang01.jpg" alt="큰사진">
+    </div>
+    <nav>
+      <ul>
+        <li class="on"><a href="./images01/coupang01.jpg" title="인기 브랜드 대특가">인기 브랜드 대특가</a></li>
+        <li><a href="./images01/coupang02.jpg" title="베스트 생필품">베스트 생필품</a></li>
+        <li><a href="./images01/coupang03.jpg" title="베베숲">베베숲</a></li>
+        <li><a href="./images01/coupang04.jpg" title="스포츠 브랜드">스포츠 브랜드</a></li>
+        <li><a href="./images01/coupang05.png" title="수입식품 쟁여두기">수입식품 쟁여두기</a></li>
+        <li><a href="./images01/coupang06.jpg" title="특가 대방출">특가 대방출</a></li>
+      </ul>
+    </nav>
+  </article>
+</body>
+</html>

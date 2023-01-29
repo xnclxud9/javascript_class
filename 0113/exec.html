@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습예제</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    a{color: #333;text-decoration: none;}
+    ul, li{list-style: none;}
+    .b_wrap{
+      border: 3px solid #000;
+      width: 340px;
+      height: 378px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner{
+      display: flex;
+      position: relative;
+    }
+    .c_btn{
+      display: flex;
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+    }
+    .c_btn li{
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      margin: 0 2px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .on{
+      background: #a763e7 !important;
+      width: 50px !important;
+      border-radius: 10px !important;
+    }
+    .p_btn{
+      display: flex;
+      position: absolute;
+      right: 10px;
+      bottom: 7px;
+    }
+    .p_btn i{
+      color: #fff;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .on01{
+      color: #a763e7 !important;
+    }
+  </style>
+  <!-- 폰트어썸 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <!-- 제이쿼리 라이브러리 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(function(){
+      let n = $('.c_btn li').index();
+      $('.c_btn li').click(function(){
+        n = $(this).index();
+        let img_w = $('.banner img').width();
+      $('.banner').animate({'left':-img_w*n},500);
+      $('.c_btn li').removeClass('on');
+      $(this).addClass('on');
+      });
+
+      function autoSlide(n){
+        n = -(n*$('.banner img').width());
+        $('.banner').stop().animate({'left':n}, 500);
+      }
+      let Timer = setInterval(function(){
+        if(n==2){
+          n=0;
+          $('.c_btn li').removeClass('on');
+          $('.c_btn li').eq(n).addClass('on');
+        }else{
+          n++;
+          $('.c_btn li').removeClass('on');
+          $('.c_btn li').eq(n).addClass('on');
+        }
+        autoSlide(n);
+      }, 3000);
+
+      $('.c_btn').hover(function(){
+        clearInterval(Timer);
+      }, function(){
+        let Timer = setInterval(function(){
+        if(n==2){
+          n=0;
+          $('.c_btn li').removeClass('on');
+          $('.c_btn li').eq(n).addClass('on');
+        }else{
+          n++;
+          $('.c_btn li').removeClass('on');
+          $('.c_btn li').eq(n).addClass('on');
+        }
+        autoSlide(n);
+        }, 3000);
+      });
+      
+      $('.fa-play').click(function(){
+        $('.fa-stop').removeClass('on01');
+        $('.fa-play').addClass('on01');
+        if(!Timer){
+          Timer = setInterval(function(){
+            if(n==2){
+              n=0;
+              $('.c_btn li').removeClass('on');
+              $('.c_btn li').eq(n).addClass('on');
+            }else{
+              n++;
+              $('.c_btn li').removeClass('on');
+              $('.c_btn li').eq(n).addClass('on');
+          }
+          autoSlide(n);
+          }, 3000);
+        };
+      }); 
+      $('i.fa-stop').click(function(){
+        clearInterval(Timer);
+        Timer = false;
+        $('.fa-play').removeClass('on01');
+        $('.fa-stop').addClass('on01');
+      });
+
+  });
+  </script>
+</head>
+<body>
+  <h2>실습예제</h2>
+  <article class="b_wrap">
+    <ul class="banner">
+      <li><a href="#" title="배너"><img src="./images/01-1.jpg" alt="이미지"></a></li>
+      <li><a href="#" title="배너"><img src="./images/02-1.jpg" alt="이미지"></a></li>
+      <li><a href="#" title="배너"><img src="./images/03-1.jpg" alt="이미지"></a></li>
+    </ul>
+    <ul class="c_btn">
+      <li class="on">&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li>
+    </ul>
+    <ul class="p_btn">
+      <li><i class="fas fa-play on01"></i></li>
+      <li><i class="fas fa-stop"></i></li>
+    </ul>
+  </article>
+</body>
+</html>
