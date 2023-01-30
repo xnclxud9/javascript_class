@@ -1,7 +1,0 @@
-git status
-git add .  : 모든 파일 인덱스 추가
-git status  확인
-git commit -m 'jquery' : 변경내용 반영
-git push origin +main : 메인브런치에 올리기
-
-jeon9897.github.io/javascript_class/index.html
