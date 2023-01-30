@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>에뛰드 모바일 웹 내비게이션</title>
+  <!-- 폰트어썸 주소 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/main01.css" type="text/css">
+</head>
+<body>
+  <div id="wrap">
+    <header>
+      <h1><a href="#" title="상단으로바로가기">
+        <img src="./images/logo.png" alt="상단로고">
+      </a></h1>
+      
+      <span><i class="fas fa-search"></i></span>
+      
+      <div id="toggle">
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+      </div>
+    </header>
+
+    <!-- 글로벌 내비게이션 -->
+    <nav class="gnb">
+      <ul>
+        <li><a href="#" title=""><menu>01</menu></a></li>
+        <li><a href="#" title=""><menu>02</menu></a></li>
+        <li><a href="#" title=""><menu>03</menu></a></li>
+        <li><a href="#" title=""><menu>04</menu></a></li>
+        <li><a href="#" title=""><menu>05</menu></a></li>
+        <li><a href="#" title=""><menu>06</menu></a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="slide">
+        <ul>
+          <li><a href="#" title="배너"><img src="./images/slide01_01.jpg" alt="배너"></a></li>
+          <li><a href="#" title="배너"><img src="./images/slide02_02.jpg" alt="배너"></a></li>
+          <li><a href="#" title="배너"><img src="./images/slide03_03.jpg" alt="배너"></a></li>
+        </ul>
+        <i class="fas fa-angle-left"></i>
+        <i class="fas fa-angle-right"></i>
+      </section>
+    </main>
+
+    <footer>
+      <address>coptright2023&copy;에뛰드 하우스 allrights reserved.</address>
+    </footer>
+
+    <!-- 제이쿼리 라이브러리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(function(){
+
+        // 1. 토글버튼 변수
+        let t_btn = $('#toggle');
+        let t_n = 1;
+        
+        t_btn.click(function(){
+          $(this).find('span').first().toggleClass('act01');
+          $(this).find('span').eq(1).toggleClass('act02');
+          $(this).find('span').last().toggleClass('act03');
+          
+          // 토글버튼 클릭시 wrap의 위치가 오른쪽으로부터 80%위치에 배치가 된다.
+          $('#wrap').toggleClass('wrap_pos');
+
+          if(t_n==1){
+            $('body').css('overflow','hidden');
+            t_n=0;
+            console.log(t_n);
+          }else{
+            // $('body').css('overflow-y','scroll');
+            t_n=1;
+            console.log(t_n);
+          }
+        });
+
+        // 2. 스크롤값이 0보다 크면
+        $(window).scroll(function(){
+          let sPos = $(this).scrollTop(); // 브라우저의 세로 스크롤값
+          console.log(sPos); // 콘솔모드에 출력한다.
+          if(sPos>0){
+            $('#toggle').addClass('on');
+          }else{
+            $('#toggle').removeClass('on');
+          }
+        });
+        
+        // 슬라이드
+        let img_w = $('.slide img').width();
+        let l_btn = $('.slide i.fa-angle-left'); 
+        let r_btn = $('.slide i.fa-angle-right');
+
+        $(window).resize(function(){
+          img_w = $('.slide img').width();
+        });
+
+        $('.slide li:last-child').insertBefore('.slide li:first-child');
+        $('.slide ul').css('margin-left',-img_w);
+
+        function moveLeft(){
+          $('.slide ul').animate({'margin-left':-img_w*2},500,function(){
+            $('.slide li:first-child').insertAfter('.slide li:last-child');
+            $('.slide ul').css('margin-left',-img_w);
+          });
+        }
+
+        function moveRight(){
+          $('.slide ul').animate({'margin-left':'0'},500,function(){
+            $('.slide li:last-child').insertBefore('.slide li:first-child');
+            $('.slide ul').css('margin-left',-img_w);
+          });
+        }
+
+        let Timer = setInterval(moveLeft, 3000);
+
+        l_btn.click(function(){
+          moveRight();
+        });
+
+        r_btn.click(function(){
+          moveLeft();
+        });
+
+        $('.slide i.fas').hover(function(){
+          clearInterval(Timer);
+        },function(){
+          Timer = setInterval(moveLeft, 3000);
+        });
+        
+      });
+    </script>
+  </div>
+</body>
+</html>
