@@ -82,7 +82,7 @@ section > p:first-letter{
 footer{
   position: fixed;
   bottom: 0;
-  left: 150px;
+  left: 160px;
   width: calc(100% - 150px);
   background: #000;
   color: #fff;
