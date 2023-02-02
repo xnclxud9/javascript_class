@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+/* 메인 내비 서식 */
+#m_nav{
+  position: fixed;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+#m_nav ul{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#m_nav li{
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  transition: 1s;
+  overflow: hidden;
+}
+#m_nav li:hover{width: 250px;}
+#m_nav li:hover span{background: #7ac7e6;}
+#m_nav span{
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: #7ae6bc;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 50%;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+#m_nav li a{
+  color: #fff;
+  display: inline-block;
+  text-indent: 20px;
+}
